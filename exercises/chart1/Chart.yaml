@@ -1,3 +1,8 @@
+apiVersion: v1
 name: nginx-deployment
+description: test heml
+keywords:
+- nginx 
 version: 1.0.0
-keywords: ngix
+maintainers:
+- name: jarueda 
