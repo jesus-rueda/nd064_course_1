@@ -6,7 +6,6 @@ from werkzeug.exceptions import abort
 
 
 OPENED_CONNECTIONS = 0
-ACTIVE_CONNECTIONS = 0
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -15,20 +14,15 @@ def get_db_connection():
     connection.row_factory = sqlite3.Row
     global OPENED_CONNECTIONS, ACTIVE_CONNECTIONS
     OPENED_CONNECTIONS = OPENED_CONNECTIONS + 1
-    ACTIVE_CONNECTIONS = ACTIVE_CONNECTIONS + 1
+    
     return connection
-
-def close_connection(connection):
-    global ACTIVE_CONNECTIONS 
-    ACTIVE_CONNECTIONS = ACTIVE_CONNECTIONS - 1
-    connection.close()
 
 # Function to get a post using its ID
 def get_post(post_id):
     connection = get_db_connection()
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
-    close_connection(connection)
+    connection.close()
     return post
 
 # Define the Flask application
@@ -40,7 +34,7 @@ app.config['SECRET_KEY'] = 'your secret key'
 def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
-    close_connection(connection)
+    connection.close()
     return render_template('index.html', posts=posts)
     
 
@@ -76,7 +70,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                          (title, content))
             connection.commit()
-            close_connection(connection)
+            connection.close()
             app.logger.info('New Article "{title}" created!'.format(title=title))
             return redirect(url_for('index'))
 
@@ -98,7 +92,7 @@ def metrics():
        
     connection = get_db_connection()
     postsCount =  int(connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0])
-    close_connection(connection)        
+    connection.close()    
 
     response = app.response_class(
             response=json.dumps({'post_count': postsCount,'db_connection_count': OPENED_CONNECTIONS}),
