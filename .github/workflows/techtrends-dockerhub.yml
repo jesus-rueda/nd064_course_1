@@ -17,7 +17,8 @@ on:
 jobs:
   ## Set the name of the job
   package:
-  
+    
+    environment: udacity
     ## Configure the operating system the workflow should run on.
     ## In this case, the job on Ubuntu
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: jesusarueda
-          password: 123
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}        
       - run: docker build . -t jesusarueda/techtrends      
       - run: docker push jesusarueda/techtrends
 
