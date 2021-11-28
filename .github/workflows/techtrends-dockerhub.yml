@@ -27,6 +27,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}        
+      - runs: "ls"    
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
