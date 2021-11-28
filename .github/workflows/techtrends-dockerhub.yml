@@ -1,10 +1,6 @@
 ##  Named of the workflow.
 name: TechTrends - Package with Docker
 
-defaults:
-  run:    
-    working-directory: project/
-
 ## Set the trigger policy.
 ## In this case, the workflow is execute on a `push` event,
 ## or when a new commit is pushed to the repository
