@@ -1,0 +1,23 @@
+namespace: sandbox
+service:
+ port: 4111
+ targetPort: 3111
+ protocol: TCP
+ type: ClusterIP
+image:
+ repository: techtrends
+ tag: latest
+ pullPolicy: IfNotPresent
+replicaCount: 1
+resources:
+ requests:
+  mem: 64Mi
+  cpu: 250m
+ limit:
+  mem: 128Mi
+  cpu: 500m
+containerPort: 3111
+livenessProbe:
+ path: /healthz
+readinessProbe:
+ path: /healthz     
