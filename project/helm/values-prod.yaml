@@ -8,6 +8,6 @@ resources:
  requests:
   mem: 128Mi
   cpu: 350m
- limit:
+ limits:
   mem: 256Mi
   cpu: 500m

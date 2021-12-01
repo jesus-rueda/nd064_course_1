@@ -5,7 +5,7 @@ service:
  protocol: TCP
  type: ClusterIP
 image:
- repository: techtrends
+ repository: jesusarueda/techtrends
  tag: latest
  pullPolicy: IfNotPresent
 replicaCount: 1
@@ -13,7 +13,7 @@ resources:
  requests:
   mem: 64Mi
   cpu: 250m
- limit:
+ limits:
   mem: 128Mi
   cpu: 500m
 containerPort: 3111
