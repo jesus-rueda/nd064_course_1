@@ -3,7 +3,5 @@ name: techtrends
 version: 1.0.0
 keywords: 
   - techtrends
-
-maintainers: 
-  - jesusarueda
+maintainer: jesusarueda
   
